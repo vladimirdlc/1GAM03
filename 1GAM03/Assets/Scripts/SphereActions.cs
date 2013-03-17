@@ -10,14 +10,13 @@ public class SphereActions : MonoBehaviour {
 	public int offsetx = 6;
 	public int offsety = 20;
 	
-	private Vector3 currPos;
+	Vector3 currPos;
 	
 	float initialTime = 0;
 	
 	void Start () {
         gameObject.renderer.material.color = RandomLogic.GetColor();
 		currPos = Camera.main.WorldToScreenPoint(transform.position);
-        letter = RandomLogic.GetUppercasetLetter().ToString();
 	}
 	
 	void Update () {
@@ -25,7 +24,6 @@ public class SphereActions : MonoBehaviour {
 
 		float deltaTime;
 		deltaTime = Time.time - initialTime;
-
 
         if (Input.GetKeyDown(letter.ToLower()))
         {
@@ -48,6 +46,6 @@ public class SphereActions : MonoBehaviour {
 
     void OnGUI()
     {
-        AdvancedLabel.Draw(new Rect(currPos.x - offsetx, currPos.y - offsety, 100, 100), letter, new NewFontSize(25));
+        AdvancedLabel.Draw(new Rect(currPos.x + offsetx, Screen.height - currPos.y + offsety, 100, 100), letter, new NewFontSize(25));
     }
 }
