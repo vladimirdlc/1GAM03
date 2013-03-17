@@ -2,11 +2,12 @@ using UnityEngine;
 using System.Collections;
 
 public class SphereActions : MonoBehaviour {
-	public Color color;
-	public float disminutionStep = 0.10f;
+	public float disminutionStep = 0.1f;
+    public float augmentationStep = 1f;
+    public float maxScale = 60f;
 	public float ballDisminutionTime = 0.1f;
     public string letter;
-	public int offsetx = 5;
+	public int offsetx = 6;
 	public int offsety = 20;
 	
 	private Vector3 currPos;
@@ -14,17 +15,28 @@ public class SphereActions : MonoBehaviour {
 	float initialTime = 0;
 	
 	void Start () {
-		gameObject.renderer.material.color = color;
+        gameObject.renderer.material.color = RandomLogic.GetColor();
 		currPos = Camera.main.WorldToScreenPoint(transform.position);
-        letter = RandomLetter.GetUppercasetLetter().ToString();
+        letter = RandomLogic.GetUppercasetLetter().ToString();
 	}
 	
 	void Update () {
 		if(initialTime == 0) initialTime = Time.time;
-		float deltaTime ;
+
+		float deltaTime;
 		deltaTime = Time.time - initialTime;
-		
-		if (deltaTime >= ballDisminutionTime) {
+
+
+        if (Input.GetKeyDown(letter.ToLower()))
+        {
+            if (this.transform.localScale.x < maxScale)
+            {
+                this.transform.localScale = new Vector3(this.transform.localScale.x + augmentationStep,
+                                                        this.transform.localScale.y + augmentationStep,
+                                                        this.transform.localScale.z + augmentationStep);
+            }
+        }
+        else if (deltaTime >= ballDisminutionTime) {
 			
 			this.transform.localScale = new Vector3(this.transform.localScale.x - disminutionStep, 
 				                                    this.transform.localScale.y - disminutionStep, 
@@ -32,11 +44,6 @@ public class SphereActions : MonoBehaviour {
 
 			initialTime = 0;
 		};
-
-        if (Input.GetKeyDown(letter.ToLower()))
-        {
-            Debug.Log("it works: "+letter);
-        }
 	}
 
     void OnGUI()
