@@ -11,14 +11,14 @@ Contact info
 
 Vladimir:
 --------
-Email:         vladimirdlc@gmail.com
-github:        https://github.com/vladimirdlc
-twitter:       @vladimirdlc
-onegameamonth: http://onegameamonth.com/vladimirdlc
+<br>Email:         vladimirdlc@gmail.com</br>
+<br>github:        https://github.com/vladimirdlc</br>
+<br>twitter:       @vladimirdlc</br>
+<br>onegameamonth: http://onegameamonth.com/vladimirdlc</br>
 
 David:
 -----
-Email:		   dgmarcellab@gmail.com
-github:        https://github.com/Dincu
-twitter:	   @dgmarcellab
-onegameamonth: http://onegameamonth.com/Dgmarcellab
+<br>Email:		   dgmarcellab@gmail.com</br>
+<br>github:        https://github.com/Dincu</br>
+<br>twitter:	   @dgmarcellab</br>
+<br>onegameamonth: http://onegameamonth.com/Dgmarcellab</br>
