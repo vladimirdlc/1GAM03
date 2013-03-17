@@ -6,6 +6,8 @@ public class SphereActions : MonoBehaviour {
     public float augmentationStep = 1f;
     public float maxScale = 60f;
 	public float ballDisminutionTime = 0.1f;
+    public float minScale = 15.0f;
+    
     public string letter;
 	public int offsetx = 6;
 	public int offsety = 20;
@@ -32,6 +34,9 @@ public class SphereActions : MonoBehaviour {
                 this.transform.localScale = new Vector3(this.transform.localScale.x + augmentationStep,
                                                         this.transform.localScale.y + augmentationStep,
                                                         this.transform.localScale.z + augmentationStep);
+
+                if (this.transform.localScale.x <= minScale)
+                    Player.isGameOver = true;
             }
         }
         else if (deltaTime >= ballDisminutionTime) {
