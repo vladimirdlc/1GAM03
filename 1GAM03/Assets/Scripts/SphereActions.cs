@@ -4,7 +4,7 @@ using System.Collections;
 public class SphereActions : MonoBehaviour {
 	public Color color;
 	public float disminutionStep = 0.10f;
-	public const int ballDisminutionTime = 1;
+	public float ballDisminutionTime = 0.1f;
 	public int offsetx = 5;
 	public int offsety = 20;
 	
