@@ -5,6 +5,7 @@ public class SphereActions : MonoBehaviour {
 	public Color color;
 	public float disminutionStep = 0.10f;
 	public float ballDisminutionTime = 0.1f;
+    public string letter;
 	public int offsetx = 5;
 	public int offsety = 20;
 	
@@ -15,13 +16,14 @@ public class SphereActions : MonoBehaviour {
 	void Start () {
 		gameObject.renderer.material.color = color;
 		currPos = Camera.main.WorldToScreenPoint(transform.position);
+        letter = RandomLetter.GetUppercasetLetter().ToString();
 	}
 	
 	void Update () {
 		if(initialTime == 0) initialTime = Time.time;
 		float deltaTime ;
 		deltaTime = Time.time - initialTime;
-		Debug.Log (deltaTime);
+		
 		if (deltaTime >= ballDisminutionTime) {
 			
 			this.transform.localScale = new Vector3(this.transform.localScale.x - disminutionStep, 
@@ -30,11 +32,15 @@ public class SphereActions : MonoBehaviour {
 
 			initialTime = 0;
 		};
-		
+
+        if (Input.GetKeyDown(letter.ToLower()))
+        {
+            Debug.Log("it works: "+letter);
+        }
 	}
 
     void OnGUI()
     {
-        AdvancedLabel.Draw(new Rect(currPos.x - offsetx, currPos.y - offsety, 100, 100), "A", new NewFontSize(25));
+        AdvancedLabel.Draw(new Rect(currPos.x - offsetx, currPos.y - offsety, 100, 100), letter, new NewFontSize(25));
     }
 }
