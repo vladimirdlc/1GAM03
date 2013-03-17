@@ -35,9 +35,10 @@ public class SphereActions : MonoBehaviour {
 		};
 		
 	}
-	
-	void OnGUI () {
-		//Vector3 positionRect = Camera.main.ScreenPointToRay(this.transform.position).direction;
-		//AdvancedLabel.Draw(new Rect(positionRect.x, positionRect.y, 100, 100),"X", new NewFontSize(10));
-	}
+
+    void OnGUI()
+    {
+        Vector3 currPos = Camera.main.WorldToScreenPoint(transform.position);
+        AdvancedLabel.Draw(new Rect(currPos.x - 6, currPos.y - 20, 100, 100), "A", new NewFontSize(25));
+    }
 }
