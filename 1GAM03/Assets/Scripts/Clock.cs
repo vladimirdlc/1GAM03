@@ -20,12 +20,8 @@ public class Clock : MonoBehaviour
         }
     }
 
-    private float minutosActuales;
-    private float segundosActuales;
 
     private float tiempoTranscurrido;
-    public float minutosMeta = 0;
-    public float segundosMeta = 30;
     private float tiempoMeta;
     public bool estaContando;
     public bool esGameOver;
@@ -36,8 +32,6 @@ public class Clock : MonoBehaviour
         tiempoTranscurrido = 0;
         estaContando = false;
         tiempoTranscurrido = 0;
-        minutosActuales = 0;
-        segundosActuales = 0;
         tiempoMeta = 0;
     }
 
@@ -84,10 +78,7 @@ public class Clock : MonoBehaviour
     //Revisa si se pasó del límite de tiempo
     public bool checkGameOver()
     {
-        int minutos = (int)(tiempoTranscurrido / 60);
-        float segundos = tiempoTranscurrido % 60;
-
-        return (minutos > minutosMeta || minutosMeta == minutos && segundos >= segundosMeta);
+        return (tiempoTranscurrido > tiempoMeta);
     }
 
     private void gameOver()
@@ -109,10 +100,6 @@ public class Clock : MonoBehaviour
 
     public void iniciaContador()
     {
-        tiempoMeta = (minutosMeta*60)+segundosMeta;
-        minutosActuales = minutosMeta;
-        segundosActuales = segundosMeta;
-
         estaContando = true;
     }
 

@@ -51,6 +51,7 @@ public class SphereActions : MonoBehaviour {
 
     void OnGUI()
     {
+        AdvancedLabel.Draw(new Rect(currPos.x + offsetx, Screen.height - currPos.y + offsety, 100, 100), letter, new NewFontSize(28), new NewColor(Color.black), new NewFontStyle(FontStyle.Bold));
         AdvancedLabel.Draw(new Rect(currPos.x + offsetx, Screen.height - currPos.y + offsety, 100, 100), letter, new NewFontSize(25));
     }
 }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Linq;
+using System.Text;
 
 static class RandomLogic
 {
@@ -10,8 +11,10 @@ static class RandomLogic
     /// <returns>Random character shuffled</returns>
     public static string GetLettersShuffled()
     {
-        return new string(lettersRange.ToCharArray().
-            OrderBy(s => (Random.Range(0, 2) % 2) == 0).ToArray());
+        StringBuilder rs = new StringBuilder();
+        rs.Append(lettersRange[Random.Range(0, lettersRange.Length)]);
+
+        return rs.ToString();
     }
 
     /// <summary>

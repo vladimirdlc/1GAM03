@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
     public static float timeScore;
-    public static string name;
+    public static string playerName;
     public static bool isGameOver;
 
 	// Use this for initialization
@@ -13,7 +13,10 @@ public class Player : MonoBehaviour {
 
     void Update()
     {
-        timeScore += Time.deltaTime;
+        if (!isGameOver)
+        {
+            timeScore += Time.deltaTime;
+        }
     }
 
     public void restart()

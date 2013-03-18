@@ -8,9 +8,9 @@ public class GameLogic : MonoBehaviour {
     public const int totalDivisions = 30;
     public const int totalRows = 5;
     public const int totalCollumms = 6;
-    public float randomOffsetPercent = 0.10f;
+    public float randomOffsetPercent = 0.01f;
     public static int currentLevel = 1;
-    public int screenMargin = 50;
+    public int screenMargin = 100;
     public GameObject bongBase;
 
     List<Vector2> points;
@@ -30,7 +30,8 @@ public class GameLogic : MonoBehaviour {
                 int offsetx = Random.Range(-roffsetx, roffsetx);
                 int offsety = Random.Range(-roffsety, roffsety);
 
-                points.Add(new Vector2(i*spacex+offsetx, j*spacey+offsety));
+                points.Add(new Vector2(Mathf.Min(i * spacex + offsetx, Screen.width-screenMargin),
+                    Mathf.Min(j * spacey + offsety, Screen.height-screenMargin)));
             }
 
         string lettersShuffled = RandomLogic.GetLettersShuffled();
