@@ -15,8 +15,12 @@ public class GameLogic : MonoBehaviour {
 
     List<Vector2> points;
 
+    public float levelTime = 20;
+    private float currentTime;
+
 	// Use this for initialization
 	void Start () {
+        currentTime = 20;
         points = new List<Vector2>();
         int spacex = (Screen.width-screenMargin)/totalCollumms;
         int spacey = (Screen.height - screenMargin)/totalRows;
@@ -51,5 +55,23 @@ public class GameLogic : MonoBehaviour {
             }
         }
 	}
+
+    void Update()
+    {
+        currentTime -= Time.deltaTime;
+
+        if (currentTime <= 0)
+        {
+            if (Player.isGameOver)
+            {
+                Application.LoadLevel(0);
+            }
+            else
+            {
+                currentLevel++;
+                Application.LoadLevel(Application.loadedLevel);
+            }
+        }
+    }
 
 }

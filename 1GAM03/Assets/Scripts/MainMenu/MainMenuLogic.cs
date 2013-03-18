@@ -52,6 +52,7 @@ public class MainMenuLogic : MonoBehaviour {
     private void startGame()
     {
         Player.playerName = textAreaString;
+        GameLogic.currentLevel = 1;
         Application.LoadLevel("MainGame");
     }
 

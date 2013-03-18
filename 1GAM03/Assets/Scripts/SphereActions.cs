@@ -34,9 +34,6 @@ public class SphereActions : MonoBehaviour {
                 this.transform.localScale = new Vector3(this.transform.localScale.x + augmentationStep,
                                                         this.transform.localScale.y + augmentationStep,
                                                         this.transform.localScale.z + augmentationStep);
-
-                if (this.transform.localScale.x <= minScale)
-                    Player.isGameOver = true;
             }
         }
         else if (deltaTime >= ballDisminutionTime) {
@@ -44,6 +41,9 @@ public class SphereActions : MonoBehaviour {
 			this.transform.localScale = new Vector3(this.transform.localScale.x - disminutionStep, 
 				                                    this.transform.localScale.y - disminutionStep, 
 				                                    this.transform.localScale.z - disminutionStep);
+
+            if (this.transform.localScale.x <= minScale)
+                Player.isGameOver = true;
 
 			initialTime = 0;
 		};

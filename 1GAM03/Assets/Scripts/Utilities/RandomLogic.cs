@@ -11,10 +11,7 @@ static class RandomLogic
     /// <returns>Random character shuffled</returns>
     public static string GetLettersShuffled()
     {
-        StringBuilder rs = new StringBuilder();
-        rs.Append(lettersRange[Random.Range(0, lettersRange.Length)]);
-
-        return rs.ToString();
+        return new string(lettersRange.OrderBy(n => System.Guid.NewGuid()).ToArray());
     }
 
     /// <summary>
