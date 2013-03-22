@@ -42,7 +42,7 @@ public bool isTimeOver;
 	{
         count();
 
-        if (!isTimeOver && isGoalTimeOver())
+        if (!isTimeOver && isOverGoalTime())
         {
             timeOverAction();
             isTimeOver = true;
@@ -90,7 +90,7 @@ public bool isTimeOver;
 		isCounting = false;
 	}
 
-    private bool isGoalTimeOver()
+    private bool isOverGoalTime()
     {
         if (isAscending)
         {
