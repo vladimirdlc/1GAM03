@@ -42,10 +42,15 @@ public class GameLogic : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         if (instance == null) instance = gameObject.GetComponent<GameLogic>();
-        currentTime = 20;
+        resetLevel();
+	}
+
+    private void resetLevel()
+    {
+        currentTime = levelTime;
         points = new List<Vector2>();
-        int spacex = (Screen.width-screenMargin)/totalCollumms;
-        int spacey = (Screen.height - screenMargin)/totalRows;
+        int spacex = (Screen.width - screenMargin) / totalCollumms;
+        int spacey = (Screen.height - screenMargin) / totalRows;
         int roffsetx = (int)(Screen.width * randomOffsetPercent);
         int roffsety = (int)(Screen.height * randomOffsetPercent);
 
@@ -55,14 +60,14 @@ public class GameLogic : MonoBehaviour {
                 int offsetx = Random.Range(-roffsetx, roffsetx);
                 int offsety = Random.Range(-roffsety, roffsety);
 
-                points.Add(new Vector2(Mathf.Min(i * spacex + offsetx, Screen.width-screenMargin),
-                    Mathf.Min(j * spacey + offsety, Screen.height-screenMargin)));
+                points.Add(new Vector2(Mathf.Min(i * spacex + offsetx, Screen.width - screenMargin),
+                    Mathf.Min(j * spacey + offsety, Screen.height - screenMargin)));
             }
 
         string lettersShuffled = RandomLogic.GetLettersShuffled();
 
         int idx = 0;
-      
+
         foreach (Vector2 point in points.OrderBy(n => System.Guid.NewGuid()).Take(currentLevel))
         {
             Ray ray = Camera.main.ScreenPointToRay(point);
@@ -76,7 +81,7 @@ public class GameLogic : MonoBehaviour {
                 idx++;
             }
         }
-	}
+    }
 
     public Vector3 getRandomSpacePoint()
     {
@@ -107,7 +112,11 @@ public class GameLogic : MonoBehaviour {
             else
             {
                 currentLevel++;
-                Application.LoadLevel(Application.loadedLevel);
+                foreach (GameObject bong in GameObject.FindGameObjectsWithTag("Bong"))
+                    Destroy(bong);
+
+                GameObject.Find("LevelTimer").GetComponent<Timer>().startTimer();
+                resetLevel();
             }
         }
     }

@@ -32,9 +32,7 @@ public bool isTimeOver;
             resetGUI();
         }
 
-        fraction = fraction % 10;
-        seconds = seconds % 60;
-        currentTime = seconds + (fraction / 10.0f);
+        resetTime();
 	}
  
  
@@ -106,9 +104,18 @@ public bool isTimeOver;
     public void resetTime()
     {
         resetGUI();
-        seconds = 0;
-        fraction = 0;
-        currentTime = 0;
+        if (!isAscending)
+        {
+            fraction = fractionGoal % 10;
+            seconds = secondsGoal % 60;
+            currentTime = secondsGoal + (fractionGoal / 10.0f);
+        }
+        else
+        {
+            fraction = fraction % 10;
+            seconds = seconds % 60;
+            currentTime = seconds + (fraction / 10.0f);
+        }
     }
 
     public void setCountType(bool isAscending)
