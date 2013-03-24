@@ -69,7 +69,12 @@ public bool isTimeOver;
 
     void OnGUI()
     {
-        GUI.Label(rposition, string.Format("{0}''{1}", seconds, fraction), style);
+        GUI.Label(rposition, getTimeLabel(), style);
+    }
+
+    public string getTimeLabel()
+    {
+        return string.Format("{0}''{1}", seconds, fraction);
     }
  
 	public void startTimer()

@@ -12,6 +12,7 @@ public class SphereActions : MonoBehaviour {
 	public int offsetx = 6;
 	public int offsety = 20;
 
+    public float smoothDamp = 100.0f;
     public Vector3 targetPos;
 
 	Vector3 currPos;
@@ -22,7 +23,7 @@ public class SphereActions : MonoBehaviour {
         gameObject.renderer.material.color = RandomLogic.GetColor();
 	}
 	
-	void Update () {
+	void FixedUpdate () {
 		if(initialTime == 0) initialTime = Time.time;
 
 		float deltaTime;
@@ -32,16 +33,16 @@ public class SphereActions : MonoBehaviour {
         {
             if (this.transform.localScale.x < maxScale)
             {
-                this.transform.localScale = new Vector3(this.transform.localScale.x + augmentationStep,
-                                                        this.transform.localScale.y + augmentationStep,
-                                                        this.transform.localScale.z + augmentationStep);
+                this.transform.localScale = new Vector3(this.transform.localScale.x + augmentationStep * Time.fixedDeltaTime * smoothDamp,
+                                                        this.transform.localScale.y + augmentationStep * Time.fixedDeltaTime * smoothDamp,
+                                                        this.transform.localScale.z + augmentationStep * Time.fixedDeltaTime * smoothDamp);
             }
         }
         else if (deltaTime >= ballDisminutionTime) {
-			
-			this.transform.localScale = new Vector3(this.transform.localScale.x - disminutionStep, 
-				                                    this.transform.localScale.y - disminutionStep, 
-				                                    this.transform.localScale.z - disminutionStep);
+
+            this.transform.localScale = new Vector3(this.transform.localScale.x - disminutionStep * Time.fixedDeltaTime * smoothDamp,
+                                                    this.transform.localScale.y - disminutionStep * Time.fixedDeltaTime * smoothDamp,
+                                                    this.transform.localScale.z - disminutionStep * Time.fixedDeltaTime * smoothDamp);
 
             if (this.transform.localScale.x <= minScale)
                 Player.isGameOver = true;

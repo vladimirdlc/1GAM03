@@ -14,12 +14,26 @@ public class GameLogic : MonoBehaviour {
     public GameObject bongBase;
     public int mask = 1 << 8;
 
+    public GameObject levelTimeGO;
+    public GameObject playerTimeGO;
+
+    private Timer levelTimer;
+    private Timer playerTimer;
+
+    private GUIStyle guiStyle;
+
     public static List<Vector2> points;
 
     public float levelTime = 20;
     private float currentTime;
 
+    public const int lastLevel = 26;
+
+    public Font GUIFont;
+
     private static GameLogic instance;
+
+
 
     public static GameLogic Instance
     {
@@ -42,6 +56,10 @@ public class GameLogic : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         if (instance == null) instance = gameObject.GetComponent<GameLogic>();
+
+        playerTimer = playerTimeGO.GetComponent<Timer>();
+        levelTimer = levelTimeGO.GetComponent<Timer>();
+         
         resetLevel();
 	}
 
@@ -49,6 +67,7 @@ public class GameLogic : MonoBehaviour {
     {
         currentTime = levelTime;
         points = new List<Vector2>();
+        levelTimer.startTimer();
         int spacex = (Screen.width - screenMargin) / totalCollumms;
         int spacey = (Screen.height - screenMargin) / totalRows;
         int roffsetx = (int)(Screen.width * randomOffsetPercent);
@@ -103,21 +122,67 @@ public class GameLogic : MonoBehaviour {
     {
         currentTime -= Time.deltaTime;
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.LoadLevel(0);
+        }
+
+        if (Player.isGameOver)
+        {
+            levelTimer.pauseTimer();
+            playerTimer.pauseTimer();
+        }
+
         if (currentTime <= 0)
         {
-            if (Player.isGameOver)
+            if (currentLevel != lastLevel)
             {
-                Application.LoadLevel(0);
+                if (!Player.isGameOver) levelUp();
             }
             else
             {
-                currentLevel++;
-                foreach (GameObject bong in GameObject.FindGameObjectsWithTag("Bong"))
-                    Destroy(bong);
-
-                GameObject.Find("LevelTimer").GetComponent<Timer>().startTimer();
-                resetLevel();
+                levelTimer.pauseTimer();
             }
+        }
+    }
+
+    void levelUp()
+    {
+        currentLevel++;
+        foreach (GameObject bong in GameObject.FindGameObjectsWithTag("Bong"))
+            Destroy(bong);
+
+        resetLevel();
+    }
+
+    void OnGUI()
+    {
+        if (guiStyle == null)
+        {
+            guiStyle = new GUIStyle(GUI.skin.label);
+            guiStyle.alignment = TextAnchor.MiddleCenter;
+            guiStyle.fontSize = 20;
+            guiStyle.font = GUIFont;
+            guiStyle.fontStyle = FontStyle.Bold;
+        }
+
+        if (Player.isGameOver)
+        {
+            GUI.BeginGroup(new Rect(Screen.width/2 - 250, 50, 400, 300));
+            GUI.Box(new Rect(50, 0, 400, 200), string.Empty);
+
+            if(currentLevel == lastLevel)
+                GUI.Label(new Rect(50, 25, 350, 50), "You are amazing. You are the Tentancle 26 Master!", guiStyle);
+            else
+                GUI.Label(new Rect(50, 25, 350, 50), "You got to Tentacle " + currentLevel + " !", guiStyle);
+
+            GUI.Label(new Rect(50, 75, 350, 50), "Your were alive: " + playerTimer.getTimeLabel() + " s", guiStyle);
+
+            if (GUI.Button(new Rect(125, 150, 200, 25), "PRESS TO RETURN"))
+            {
+                Application.LoadLevel(0);
+            }
+            GUI.EndGroup();
         }
     }
 

@@ -63,8 +63,10 @@ public class MainMenuLogic : MonoBehaviour {
 
         for (int i = 1; i <= totalInScores; i++)
         {
-            string etiquetaJugador = "~" + PlayerPrefs.GetString("Name" + i, "Rogue") + ": " + PlayerPrefs.GetInt("Record" + i, 0) + " sg";
-            AdvancedLabel.Draw(new Rect(10, 10 + (i * 20), 200, 200), etiquetaJugador, new NewFontSize(15), new NewColor(Color.white), new NewFontStyle(FontStyle.Italic));
+            float playerScore = PlayerPrefs.GetFloat("Record" + i, 0);
+
+            string labelPlayer = "~" + PlayerPrefs.GetString("Name" + i, "Rogue") + ": " + playerScore + " sg";
+            AdvancedLabel.Draw(new Rect(10, 10 + (i * 20), 200, 200), labelPlayer, new NewFontSize(15), new NewColor(Color.white), new NewFontStyle(FontStyle.Italic));
         }
     }
 }
