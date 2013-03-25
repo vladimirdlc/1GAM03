@@ -20,20 +20,17 @@ public class GameLogic : MonoBehaviour {
     private Timer levelTimer;
     private Timer playerTimer;
 
-    private GUIStyle guiStyle;
-
     public static List<Vector2> points;
 
     public float levelTime = 20;
     private float currentTime;
 
-    public const int lastLevel = 26;
+    public const int finalLevel = 26;
+    public int storeNScores = 5;
 
-    public Font GUIFont;
+    private bool isWaitingForAction;
 
     private static GameLogic instance;
-
-
 
     public static GameLogic Instance
     {
@@ -127,21 +124,38 @@ public class GameLogic : MonoBehaviour {
             Application.LoadLevel(0);
         }
 
-        if (Player.isGameOver)
+        if (Player.isGameOver && !isWaitingForAction)
         {
             levelTimer.pauseTimer();
             playerTimer.pauseTimer();
+            Player.timeScore = Mathf.Floor(playerTimer.getTime() * 10)/10;
+
+            submitScore();
+            isWaitingForAction = true;
         }
 
         if (currentTime <= 0)
         {
-            if (currentLevel != lastLevel)
+            if (currentLevel != finalLevel)
             {
                 if (!Player.isGameOver) levelUp();
             }
             else
             {
                 levelTimer.pauseTimer();
+            }
+        }
+    }
+
+    private void submitScore()
+    {
+        for (int i = 1; i <= storeNScores; i++)
+        {
+            if(Player.timeScore > PlayerPrefs.GetFloat("Record" + i))
+            {
+                PlayerPrefs.SetFloat("Record" + i, Player.timeScore);
+                PlayerPrefs.SetString("Name" + i, Player.playerName);
+                break;
             }
         }
     }
@@ -153,37 +167,6 @@ public class GameLogic : MonoBehaviour {
             Destroy(bong);
 
         resetLevel();
-    }
-
-    void OnGUI()
-    {
-        if (guiStyle == null)
-        {
-            guiStyle = new GUIStyle(GUI.skin.label);
-            guiStyle.alignment = TextAnchor.MiddleCenter;
-            guiStyle.fontSize = 20;
-            guiStyle.font = GUIFont;
-            guiStyle.fontStyle = FontStyle.Bold;
-        }
-
-        if (Player.isGameOver)
-        {
-            GUI.BeginGroup(new Rect(Screen.width/2 - 250, 50, 400, 300));
-            GUI.Box(new Rect(50, 0, 400, 200), string.Empty);
-
-            if(currentLevel == lastLevel)
-                GUI.Label(new Rect(50, 25, 350, 50), "You are amazing. You are the Tentancle 26 Master!", guiStyle);
-            else
-                GUI.Label(new Rect(50, 25, 350, 50), "You got to Tentacle " + currentLevel + " !", guiStyle);
-
-            GUI.Label(new Rect(50, 75, 350, 50), "Your were alive: " + playerTimer.getTimeLabel() + " s", guiStyle);
-
-            if (GUI.Button(new Rect(125, 150, 200, 25), "PRESS TO RETURN"))
-            {
-                Application.LoadLevel(0);
-            }
-            GUI.EndGroup();
-        }
     }
 
 }

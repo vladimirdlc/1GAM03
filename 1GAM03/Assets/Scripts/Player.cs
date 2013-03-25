@@ -22,6 +22,8 @@ public class Player : MonoBehaviour {
         }
         else
         {
+            timeScore = Mathf.Floor(timeScore * 10) / 10.0f;
+
             if (!isExplosionStarted)
             {
                 Instantiate(explosion);

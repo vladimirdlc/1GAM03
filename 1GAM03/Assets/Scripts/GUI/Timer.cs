@@ -72,7 +72,7 @@ public bool isTimeOver;
         GUI.Label(rposition, getTimeLabel(), style);
     }
 
-    public string getTimeLabel()
+    private string getTimeLabel()
     {
         return string.Format("{0}''{1}", seconds, fraction);
     }
@@ -126,5 +126,10 @@ public bool isTimeOver;
     public void setCountType(bool isAscending)
     {
         this.isAscending = isAscending;
+    }
+
+    public float getTime()
+    {
+        return currentTime;
     }
 }

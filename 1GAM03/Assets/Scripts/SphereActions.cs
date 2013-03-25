@@ -67,6 +67,7 @@ public class SphereActions : MonoBehaviour {
         }
 
     }
+
     void OnGUI()
     {
         currPos = Camera.main.WorldToScreenPoint(transform.position);

@@ -22,6 +22,11 @@ public class MainMenuLogic : MonoBehaviour {
 
     void OnGUI()
     {
+        if (Event.current.keyCode == KeyCode.Return || Event.current.keyCode == KeyCode.KeypadEnter)
+        {
+            startGame();
+        }
+
         if (guiStyle == null)
         {
             guiStyle = new GUIStyle(GUI.skin.textField);
@@ -31,7 +36,6 @@ public class MainMenuLogic : MonoBehaviour {
         showBestRecords();
         AdvancedLabel.Draw(new Rect(Screen.width / 2 - 100, Screen.height / 2 - 100, 400, 200), "Tentacle 26", new NewFontSize(50), new NewColor(Color.black), new NewFont(GUIFont));
         AdvancedLabel.Draw(new Rect(Screen.width / 2 - 100, Screen.height / 2 - 100, 400, 200), "Tentacle 26", new NewFontSize(52), new NewColor(Color.white), new NewFont(GUIFont));
-
     }
 
     private void showInputPlayerName()
@@ -63,9 +67,9 @@ public class MainMenuLogic : MonoBehaviour {
 
         for (int i = 1; i <= totalInScores; i++)
         {
-            float playerScore = PlayerPrefs.GetFloat("Record" + i, 0);
+            float playerScore = PlayerPrefs.GetFloat("Record" + i);
 
-            string labelPlayer = "~" + PlayerPrefs.GetString("Name" + i, "Rogue") + ": " + playerScore + " sg";
+            string labelPlayer = string.Format("~{0}: {1} sg", PlayerPrefs.GetString("Name" + i, "Rogue"), playerScore.ToString().Replace(".", "'"));
             AdvancedLabel.Draw(new Rect(10, 10 + (i * 20), 200, 200), labelPlayer, new NewFontSize(15), new NewColor(Color.white), new NewFontStyle(FontStyle.Italic));
         }
     }
