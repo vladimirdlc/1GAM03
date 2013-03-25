@@ -142,7 +142,7 @@ public class GameLogic : MonoBehaviour {
             }
             else
             {
-                levelTimer.pauseTimer();
+                levelTimeGO.SetActive(false);
             }
         }
     }
@@ -153,9 +153,14 @@ public class GameLogic : MonoBehaviour {
         {
             if(Player.timeScore > PlayerPrefs.GetFloat("Record" + i))
             {
+                for (int j = i + 1; j <= storeNScores; j++)
+                {
+                    PlayerPrefs.SetFloat("Record" + j, PlayerPrefs.GetFloat("Record" + (j-1)));
+                    PlayerPrefs.SetString("Name" + j, PlayerPrefs.GetString("Name" + (j-1)));
+                }
+
                 PlayerPrefs.SetFloat("Record" + i, Player.timeScore);
                 PlayerPrefs.SetString("Name" + i, Player.playerName);
-                break;
             }
         }
     }

@@ -22,7 +22,7 @@ public class EndGameDialog : MonoBehaviour {
             GUI.Box(new Rect(50, 0, 400, 200), string.Empty);
 
             if (GameLogic.currentLevel == GameLogic.finalLevel)
-                GUI.Label(new Rect(50, 25, 350, 50), "You are amazing. You are the Tentancle 26 Master!", guiStyle);
+                GUI.Label(new Rect(50, 25, 350, 50), "You are the Tentancle 26 Master!", guiStyle);
             else
                 GUI.Label(new Rect(50, 25, 350, 50), "You got to Tentacle " + GameLogic.currentLevel + " !", guiStyle);
 

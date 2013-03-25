@@ -36,6 +36,11 @@ public class MainMenuLogic : MonoBehaviour {
         showBestRecords();
         AdvancedLabel.Draw(new Rect(Screen.width / 2 - 100, Screen.height / 2 - 100, 400, 200), "Tentacle 26", new NewFontSize(50), new NewColor(Color.black), new NewFont(GUIFont));
         AdvancedLabel.Draw(new Rect(Screen.width / 2 - 100, Screen.height / 2 - 100, 400, 200), "Tentacle 26", new NewFontSize(52), new NewColor(Color.white), new NewFont(GUIFont));
+
+        if (GUI.Button(new Rect(Screen.width - 50, Screen.height - 50, 50, 50), "[FS]"))
+        {
+            Screen.fullScreen = !Screen.fullScreen;
+        }
     }
 
     private void showInputPlayerName()
