@@ -163,6 +163,12 @@ public class GameLogic : MonoBehaviour {
                 PlayerPrefs.SetString("Name" + i, Player.playerName);
             }
         }
+
+        #if UNITY_WEBPLAYER
+            Application.ExternalCall("kongregate.stats.submit", "Score", Player.timeScore);
+            Application.ExternalCall("kongregate.stats.submit", "Tentacle", currentLevel);
+            Application.ExternalCall("kongregate.stats.submit", "TotalTimePlayed", Player.timeScore);
+        #endif
     }
 
     void levelUp()
